@@ -81,7 +81,7 @@ export async function generateMetadata(): Promise<Metadata> {
     title: `Погода в ${location.city}`,
     description: `Точний прогноз погоди на 7 днів вперед у ${location}.`,
     openGraph: {
-      images: ['/favicon.svg'],
+      images: ['/logo.jpg'],
       title: `Cumulus - ваш метеопомічник`,
       description: `Точний прогноз погоди на 7 днів вперед.`,
       type: 'website',

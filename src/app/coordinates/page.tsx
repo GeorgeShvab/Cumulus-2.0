@@ -46,7 +46,7 @@ export async function generateMetadata(query: Query): Promise<Metadata> {
     title: `Погода в ${query.searchParams?.latitude}° ${query.searchParams?.longitude}°`,
     description: `Точний прогноз погоди на 7 днів вперед для точки з координатами ${query.searchParams.latitude}°, ${query.searchParams.longitude}°.`,
     openGraph: {
-      images: ['/favicon.svg'],
+      images: ['/logo.jpg'],
       title: `Погода в ${query.searchParams?.latitude}° ${query.searchParams?.longitude}`,
       description: `Точний прогноз погоди на 7 днів вперед для місця з координатами ${query.searchParams.latitude}°, ${query.searchParams.longitude}°.`,
       type: 'website',

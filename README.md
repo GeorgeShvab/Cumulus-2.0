@@ -9,3 +9,5 @@ You can run this project locally if you have your own WeatherApi One Call API 3.
 For the curious, Cumulus is a kind of clouds.
 
 It's name on Github is Cumulus-2.0 because I already have old less advanced project with same name.
+
+Here you can find deployed app: https://cumulus-2-0-e81pnxa8e-georgeshvab.vercel.app
