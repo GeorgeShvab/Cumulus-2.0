@@ -1,4 +1,8 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {}
+const nextConfig = {
+  env: {
+    MODE: 'DEVELOPMENT',
+  },
+}
 
 module.exports = nextConfig
