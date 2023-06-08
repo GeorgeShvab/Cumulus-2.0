@@ -56,6 +56,7 @@ export async function generateMetadata(query: Query): Promise<Metadata> {
       title: `Погода в ${location}`,
       description: `Точний прогноз погоди на 7 днів вперед у ${location}.`,
       type: 'website',
+      url: `/${location}`,
     },
   }
 }
