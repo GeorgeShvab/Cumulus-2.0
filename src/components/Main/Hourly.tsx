@@ -10,7 +10,7 @@ import { translatePressureUnit, translateSpeedUnit } from '../../../utils/transl
 const isNewDay = (prev: number, curr: number): boolean => {
   if (!prev) {
     return true
-  } else if (new Date(prev).toLocaleDateString() !== new Date(curr).toLocaleDateString()) {
+  } else if (new Date(prev).getUTCDate() !== new Date(curr).getUTCDate()) {
     return true
   } else {
     return false
@@ -19,18 +19,19 @@ const isNewDay = (prev: number, curr: number): boolean => {
 
 interface Props {
   hours: HourWeather[]
+  dateOffset: number
 }
 
-const DateCard: FC<HourWeather> = ({ dt }) => {
+const DateCard: FC<HourWeather & { dateOffset: number }> = ({ dt, dateOffset }) => {
   return (
     <div className="rounded-lg p-1.5 py-2 xl:p-3 bg-white shadow-sm flex flex-col gap-6 xl:gap-8">
       <div className="flex-0">
-        <p className="text-center">{getDayOfWeek(new Date(dt * 1000).getDay())}</p>
+        <p className="text-center">{getDayOfWeek(new Date(dt * 1000 + dateOffset).getUTCDay())}</p>
       </div>
       <div className="flex-1">
-        <h4 className="text-5xl text-center font-semibold mb-2">{new Date(dt * 1000).getDate()}</h4>
+        <h4 className="text-5xl text-center font-semibold mb-2">{new Date(dt * 1000 + dateOffset).getUTCDate()}</h4>
         <p className="text-center text-sm text-neutral-400">
-          {capitalizeLetter(getMonth(new Date(dt * 1000).getMonth()) || '')}
+          {capitalizeLetter(getMonth(new Date(dt * 1000 + dateOffset).getUTCMonth()) || '')}
         </p>
       </div>
     </div>
@@ -51,7 +52,7 @@ const HourCardPopupItem: FC<{ value: string | number; unit: string; title: strin
   )
 }
 
-const Hourly: FC<Props> = ({ hours }) => {
+const Hourly: FC<Props> = ({ hours, dateOffset }) => {
   const { settings } = useContext(settingsContext)
 
   const [selectedHour, setSelectedHour] = useState<HourWeather>()
@@ -61,10 +62,13 @@ const Hourly: FC<Props> = ({ hours }) => {
       <div className="grid grid-cols-4 lg:grid-cols-6 xl:grid-cols-8 gap-2 xl:gap-3 pb-4 lg:pb-0 ">
         {hours.map((item, index) => (
           <Fragment key={item.dt}>
-            {isNewDay(hours[index - 1]?.dt * 1000, item.dt * 1000) ? <DateCard {...item} /> : null}
+            {isNewDay(hours[index - 1]?.dt * 1000 + dateOffset, item.dt * 1000 + dateOffset) ? (
+              <DateCard dateOffset={dateOffset} {...item} />
+            ) : null}
             <HourCard
               settings={settings}
               onClick={() => setSelectedHour(selectedHour?.dt !== item.dt ? item : undefined)}
+              dateOffset={dateOffset}
               {...item}
             />
           </Fragment>

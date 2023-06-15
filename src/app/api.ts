@@ -21,9 +21,7 @@ export const getWeather = async ({ lat, lon }: { lat: number; lon: number }) => 
   data.daily.forEach((item) => {
     dayBoundaries = {
       ...dayBoundaries,
-      [new Date(item.dt * 1000).toLocaleDateString('en-US', {
-        timeZone: data.timezone,
-      })]: {
+      [new Date(item.dt * 1000 + data.timezone_offset).getUTCDate()]: {
         start: item.sunrise * 1000,
         end: item.sunset * 1000,
       },
@@ -34,27 +32,19 @@ export const getWeather = async ({ lat, lon }: { lat: number; lon: number }) => 
     return {
       ...item,
       is_day:
-        item.dt * 1000 >
-          dayBoundaries[
-            new Date(item.dt * 1000).toLocaleDateString('en-US', {
-              timeZone: data.timezone,
-            })
-          ].start &&
-        item.dt * 1000 <
-          dayBoundaries[
-            new Date(item.dt * 1000).toLocaleDateString('en-US', {
-              timeZone: data.timezone,
-            })
-          ].end,
+        item.dt * 1000 > dayBoundaries[new Date(item.dt * 1000 + data.timezone_offset).getDate()].start &&
+        item.dt * 1000 < dayBoundaries[new Date(item.dt * 1000 + data.timezone_offset).getDate()].end,
     }
   })
 
   data.daily = data.daily
     .map((item) => ({
       ...item,
-      day: getDayOfWeek(new Date(item.dt * 1000).getDay()),
+      day: getDayOfWeek(new Date(item.dt * 1000 + data.timezone_offset).getDay()),
     }))
     .slice(0, 7)
+
+  data.current.is_day = new Date().getTime() > data.current.sunrise && new Date().getTime() < data.current.sunset
 
   return data
 }
@@ -66,7 +56,3 @@ export const geocode = async (location: string) => {
 
   return data[0] || null
 }
-
-export const reverseGeocode = () => {}
-
-export default reverseGeocode

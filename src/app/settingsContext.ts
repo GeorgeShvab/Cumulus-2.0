@@ -1,3 +1,5 @@
+'use client'
+
 import { cookies } from 'next/dist/client/components/headers'
 import { Settings } from '../../types'
 import { createContext, useEffect, useState } from 'react'
@@ -10,8 +12,7 @@ const getInitialState = () => {
 
   if (typeof document !== 'undefined') {
     const getCookie = (name: string): string | null =>
-      document?.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() ||
-      null
+      document?.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)')?.pop() || null
 
     temperatureUnit = getCookie('temperature_unit') || 'celsius'
     speedUnit = getCookie('speed_unit') || 'ms'
@@ -74,8 +75,7 @@ export const useSettingsContex = () => {
     document.cookie = 'temperature_unit=' + settings.temperatureUnit
     document.cookie = 'speed_unit=' + settings.speedUnit
     document.cookie = 'pressure_unit=' + settings.pressureUnit
-    document.cookie =
-      'default_location=' + encodeURI(settings.defaultLocation || '')
+    document.cookie = 'default_location=' + encodeURI(settings.defaultLocation || '')
   }, [settings])
 
   return { settings, setSettings }

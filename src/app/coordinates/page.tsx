@@ -26,10 +26,14 @@ export default async function Home(query: Query) {
       <main className="bg-neutral-50">
         <div className="lg:h-screen block lg:flex">
           <div className="flex-[0_0_330px] xl:flex-[0_0_370px]">
-            <Sidebar location={capitalizeLetter(location)} {...weather.current} />
+            <Sidebar
+              location={capitalizeLetter(location)}
+              dateOffset={weather.timezone_offset * 1000}
+              {...weather.current}
+            />
           </div>
           <div className="h-full flex-1">
-            <Main days={weather.daily} hours={weather.hourly} />
+            <Main days={weather.daily} hours={weather.hourly} dateOffset={weather.timezone_offset * 1000} />
           </div>
         </div>
       </main>
@@ -46,7 +50,7 @@ export async function generateMetadata(query: Query): Promise<Metadata> {
     title: `Погода в ${query.searchParams?.latitude}° ${query.searchParams?.longitude}°`,
     description: `Точний прогноз погоди на 7 днів вперед для точки з координатами ${query.searchParams.latitude}°, ${query.searchParams.longitude}°.`,
     openGraph: {
-      images: ['/favicon.svg'],
+      images: ['/logo.jpg'],
       title: `Погода в ${query.searchParams?.latitude}° ${query.searchParams?.longitude}`,
       description: `Точний прогноз погоди на 7 днів вперед для місця з координатами ${query.searchParams.latitude}°, ${query.searchParams.longitude}°.`,
       type: 'website',

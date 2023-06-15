@@ -1,5 +1,7 @@
 'use client'
 
+'use client'
+
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { settingsContext, useSettingsContex } from './settingsContext'
@@ -8,24 +10,6 @@ import Error from './error'
 import ErrorHandler from './ErrorHandler'
 
 const inter = Inter({ subsets: ['latin'] })
-
-export const metadata = {
-  title: 'Cumulus - ваш метеопомічник',
-  description: `Дізнайтеся точний прогноз погоди на 7 днів вперед у будь-якому місті світу.`,
-  openGraph: {
-    images: ['/icons/day.svg'],
-    title: 'Cumulus - ваш метеопомічник',
-    description: 'Дізнайтеся точний прогноз погоди на 7 днів вперед у будь-якому місті світу.',
-    type: 'website',
-  },
-  icons: {
-    icon: {
-      url: '/favicon.svg',
-      type: 'image/svg',
-    },
-    shortcut: { url: '/favicon.svg', type: 'image/svg' },
-  },
-}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const settingsState = useSettingsContex()
@@ -40,6 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           rel="stylesheet"
         />
         <link rel="icon" type="icon/svg" href="/favicon.svg" />
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBioDakkwvxdwJrZWYuYlrCE_gQm13H2HA&libraries=places"></script>
       </head>
 
       <body className={inter.className + ' font-montserrat lg:h-screen lg:overflow-hidden'}>

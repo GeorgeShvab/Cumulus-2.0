@@ -1,3 +1,5 @@
+'use client'
+
 import { Component, ErrorInfo, ReactElement, ReactNode } from 'react'
 
 class ErrorBoundary extends Component<{ children: ReactElement; fallback: ReactElement }> {

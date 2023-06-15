@@ -1,5 +1,7 @@
+'use client'
+
 import Alert from '@/components/Alert'
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { FC, useEffect, useRef, useState } from 'react'
 
 const ErrorHandler: FC = () => {
