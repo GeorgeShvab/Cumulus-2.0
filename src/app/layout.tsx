@@ -25,6 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
         <link rel="icon" type="icon/svg" href="/favicon.svg" />
         <script
+          async
           defer
           src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBioDakkwvxdwJrZWYuYlrCE_gQm13H2HA&libraries=places"
         ></script>
