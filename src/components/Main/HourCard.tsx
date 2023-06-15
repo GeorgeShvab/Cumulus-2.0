@@ -19,7 +19,7 @@ const HourCardPopupItem: FC<{ value: string | number; unit: string; title: strin
   )
 }
 
-const HourCard: FC<HourWeather & { settings: Settings; onClick?: () => void }> = ({
+const HourCard: FC<HourWeather & { settings: Settings; onClick?: () => void; dateOffset: number }> = ({
   weather,
   dt,
   temp,
@@ -32,6 +32,7 @@ const HourCard: FC<HourWeather & { settings: Settings; onClick?: () => void }> =
   humidity,
   pressure,
   onClick,
+  dateOffset,
 }) => {
   const [isHovered, setIsHovered] = useState<boolean>(false)
 
@@ -69,7 +70,7 @@ const HourCard: FC<HourWeather & { settings: Settings; onClick?: () => void }> =
           />
         </div>
       </Popup>
-      <h5 className="text-center text-sm mb-1">{new Date(dt * 1000).toLocaleTimeString().slice(0, 5)}</h5>
+      <h5 className="text-center text-sm mb-1">{new Date(dt * 1000 + dateOffset).toUTCString().slice(17, 22)}</h5>
       <div className="">
         <WeatherIcon code={weather[0]?.id || 0} isDay={is_day} />
       </div>

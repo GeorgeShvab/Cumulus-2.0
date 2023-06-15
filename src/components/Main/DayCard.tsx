@@ -4,14 +4,15 @@ import { DayWeather } from '../../../types'
 import { getDayOfWeek } from '../../../utils/date'
 import { converTemperature } from '../../../utils/convert'
 
-const DayCard: FC<
-  DayWeather & {
-    onClick: () => void
-    className?: string
-    unit: 'fahrenheit' | 'celsius'
-    choosed: boolean
-  }
-> = ({ temp, className, onClick, dt, unit, weather, choosed }) => {
+interface Props extends DayWeather {
+  onClick: () => void
+  className?: string
+  unit: 'fahrenheit' | 'celsius'
+  choosed: boolean
+  dateOffset: number
+}
+
+const DayCard: FC<Props> = ({ temp, className, onClick, dt, unit, weather, choosed, dateOffset }) => {
   return (
     <div
       className={`rounded-lg bg-white p-1.5 py-2 xl:p-4 shadow-lg transition-all cursor-pointer ${
@@ -23,7 +24,7 @@ const DayCard: FC<
       role="button"
     >
       <h5 className="text-center mb-1.5 xl:mb-0 font-semibold text-xs xl:text-sm">
-        {getDayOfWeek(new Date(dt * 1000).getDay())}
+        {getDayOfWeek(new Date(dt * 1000 + dateOffset).getUTCDay())}
       </h5>
       <div className="px-2 mb-1.5 xl:mb-0">
         <WeatherIcon code={weather[0].id} isDay={true} />

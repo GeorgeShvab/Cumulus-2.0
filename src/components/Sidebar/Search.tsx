@@ -1,22 +1,44 @@
 'use client'
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation'
-import { FC, FormEvent, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import { ChangeEvent, FC, FormEvent, useMemo, useRef, useState } from 'react'
 import Settings from '../Settings/Settings'
+import usePlacesAutocomplete from 'use-places-autocomplete'
+import Link from 'next/link'
+import useOutsideClick from '@/hooks/useOutsideClick'
+import useCurrentLocation from './useCurrentLocation'
 
 const Search: FC = () => {
+  const router = useRouter()
+
+  const formRef = useRef<HTMLFormElement>(null)
+
+  const input = useCurrentLocation()
+
   const [isSettingsOpened, setIsSettingsOpened] = useState<boolean>(false)
 
-  const router = useRouter()
-  const pathname = usePathname()
-  const search = useSearchParams()
+  const { value, suggestions, setValue, clearSuggestions } = usePlacesAutocomplete({
+    requestOptions: { types: ['(cities)'], language: 'uk' },
+    debounce: 350,
+    defaultValue: input,
+  })
 
-  let input
+  const data = useMemo(
+    () =>
+      suggestions.data.filter((item) =>
+        item.types.every(
+          (value) => value !== 'route' && value !== 'country' && !value.includes('administrative_area_level')
+        )
+      ),
+    [suggestions.data]
+  )
 
-  if (search.has('latitude') && search.has('longitude')) {
-    input = `${search.get('latitude')} ${search.get('longitude')}`
-  } else {
-    input = decodeURI(pathname.split('/').reverse()[0])
+  useOutsideClick(formRef, () => {
+    clearSuggestions()
+  })
+
+  const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value.trim().toLowerCase())
   }
 
   const handleSubmit = (e: FormEvent<HTMLFormElement> & { target: { query: HTMLInputElement } }) => {
@@ -33,11 +55,20 @@ const Search: FC = () => {
     }
   }
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <Settings show={isSettingsOpened} onClose={() => setIsSettingsOpened(false)} />
+  const handleFocus = () => {
+    if (value.trim().length) {
+      setValue(value)
+    }
+  }
 
-      <div className={`flex gap-3 items-center bg-neutral-100 p-2 rounded-lg`}>
+  return (
+    <form onSubmit={handleSubmit} className="relative" ref={formRef}>
+      <Settings show={isSettingsOpened} onClose={() => setIsSettingsOpened(false)} />
+      <div
+        className={`flex gap-3 items-center bg-neutral-100 p-2 ${
+          data.length ? 'rounded-t-lg outline outline-1 outline-b-0 outline-neutral-200 shadow' : 'rounded-lg'
+        }`}
+      >
         <button
           className="bg-transparent border-none hover:bg-neutral-100 rounded-full p-1 transition-colors"
           type="submit"
@@ -61,9 +92,11 @@ const Search: FC = () => {
           className="border-none outline-none bg-transparent text-black text-sm placeholder:text-black block flex-1"
           type="text"
           name="query"
-          defaultValue={input}
+          defaultValue={value}
           placeholder="Пошук міста..."
           autoComplete="off"
+          onInput={handleInput}
+          onFocus={handleFocus}
         />
         <button
           className={`bg-transparent border-none rounded-full bg-neutral-100 p-1 hover:rotate-180 transition-transform transition-colors duration-1000 ${
@@ -99,6 +132,18 @@ const Search: FC = () => {
           )}
         </button>
       </div>
+      {data.length ? (
+        <div className="absolute top-full bg-neutral-100 py-2 rounded-b-lg w-full outline outline-1 outline-t-0 outline-neutral-200 shadow">
+          {data.map((item) => (
+            <Link href={'/' + item.structured_formatting.main_text} key={item.place_id}>
+              <div className="px-4 py-2 lg:py-1.5 hover:bg-neutral-200 transition-colors flex gap-3 items-center justify-between">
+                <p>{item.structured_formatting.main_text}</p>
+                <p className="text-xs text-sm text-neutral-400">{item.structured_formatting.secondary_text}</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      ) : null}
     </form>
   )
 }

@@ -141,6 +141,7 @@ export interface CurrentWeather {
       icon: string
     }
   ]
+  is_day: boolean
 }
 
 export interface WeatherData {
@@ -154,3 +155,45 @@ export interface WeatherData {
 }
 
 type Section = 'daily' | 'hourly'
+
+export interface AutocompletePlace {
+  description: string
+  matched_substrings: [
+    {
+      length: number
+      offset: number
+    }
+  ]
+  place_id: string
+  reference: string
+  structured_formatting: {
+    main_text: string
+    main_text_matched_substrings: [
+      {
+        length: number
+        offset: number
+      }
+    ]
+    secondary_text: string
+  }
+  terms: [
+    {
+      offset: number
+      value: string
+    },
+    {
+      offset: number
+      value: string
+    },
+    {
+      offset: number
+      value: string
+    }
+  ]
+  types: string[]
+}
+
+export interface PlacesAutocompleteApi {
+  predictions: AutocompletePlace[]
+  status: 'OK'
+}
