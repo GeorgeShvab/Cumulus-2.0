@@ -44,7 +44,8 @@ export const getWeather = async ({ lat, lon }: { lat: number; lon: number }) => 
     }))
     .slice(0, 7)
 
-  data.current.is_day = new Date().getTime() > data.current.sunrise && new Date().getTime() < data.current.sunset
+  data.current.is_day =
+    new Date().getTime() > data.current.sunrise * 1000 && new Date().getTime() < data.current.sunset * 1000
 
   return data
 }

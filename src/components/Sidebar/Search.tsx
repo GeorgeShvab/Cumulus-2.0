@@ -138,7 +138,9 @@ const Search: FC = () => {
             <Link href={'/' + item.structured_formatting.main_text} key={item.place_id}>
               <div className="px-4 py-2 lg:py-1.5 hover:bg-neutral-200 transition-colors flex gap-3 items-center justify-between">
                 <p>{item.structured_formatting.main_text}</p>
-                <p className="text-xs text-sm text-neutral-400">{item.structured_formatting.secondary_text}</p>
+                <p className="text-xs text-sm text-neutral-400 text-right">
+                  {item.structured_formatting.secondary_text}
+                </p>
               </div>
             </Link>
           ))}
