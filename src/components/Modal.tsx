@@ -17,14 +17,16 @@ const Modal: FC<{
   }, [])
 
   useEffect(() => {
-    if (show) {
-      setHidden(false)
-      document.body.style.overflow = 'hidden'
-    } else {
-      setTimeout(() => {
-        setHidden(true)
-      }, duration)
-      document.body.style.overflow = 'auto'
+    if (mounted) {
+      if (show) {
+        setHidden(false)
+        document.body.style.overflow = 'hidden'
+      } else {
+        setTimeout(() => {
+          setHidden(true)
+        }, duration)
+        document.body.style.overflow = 'auto'
+      }
     }
   }, [show])
 
@@ -33,14 +35,14 @@ const Modal: FC<{
   return createPortal(
     <div className={`${hidden ? 'invisible' : 'visible'}`}>
       <div
-        className={`fixed z-10 left-0 right-0 bottom-0 top-0 transition-opacity bg-black/40 ${
-          show ? 'oapcity-100' : 'opacity-0'
+        className={`fixed z-10 left-0 right-0 bottom-0 top-0 transition-opacity duration-500 bg-black/40 ${
+          show ? 'opacity-100' : 'opacity-0'
         }`}
         onClick={onClose}
       />
       <div
-        className={`fixed z-20 w-fit right-1/2 bottom-1/2 translate-x-1/2 translate-y-1/2 transition-opacity ${
-          show ? 'oapcity-100' : 'opacity-0'
+        className={`fixed z-20 w-fit right-1/2 bottom-1/2 translate-x-1/2 translate-y-1/2 transition-opacity duration-500 ${
+          show ? 'opacity-100' : 'opacity-0'
         }`}
       >
         {children}
