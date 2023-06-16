@@ -72,10 +72,18 @@ export const useSettingsContex = () => {
   const [settings, setSettings] = useState<Settings>(initialState)
 
   useEffect(() => {
-    document.cookie = 'temperature_unit=' + settings.temperatureUnit
-    document.cookie = 'speed_unit=' + settings.speedUnit
-    document.cookie = 'pressure_unit=' + settings.pressureUnit
-    document.cookie = 'default_location=' + encodeURI(settings.defaultLocation || '')
+    document.cookie = `temperature_unit=${settings.temperatureUnit}; path=/; expires=${new Date(
+      Date.now() + 1000 * 60 * 60 * 24 * 365
+    ).toUTCString()}`
+    document.cookie = `speed_unit=${settings.speedUnit}; path=/; expires=${new Date(
+      Date.now() + 1000 * 60 * 60 * 24 * 365
+    ).toUTCString()}`
+    document.cookie = `pressure_unit=${settings.pressureUnit}; path=/; expires=${new Date(
+      Date.now() + 1000 * 60 * 60 * 24 * 365
+    ).toUTCString()}`
+    document.cookie = `default_location=${encodeURI(settings.defaultLocation || '')}; path=/; expires=${new Date(
+      Date.now() + 1000 * 60 * 60 * 24 * 365
+    ).toUTCString()}`
   }, [settings])
 
   return { settings, setSettings }
