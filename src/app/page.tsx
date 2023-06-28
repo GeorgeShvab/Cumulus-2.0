@@ -75,15 +75,15 @@ export default async function Home() {
     )
   } catch (e) {
     console.log(e)
+
+    return <div>Some error occured</div>
   }
 }
 
 export async function generateMetadata(): Promise<Metadata> {
-  const location = await getCity()
-
   return {
-    title: `Погода в ${location.city}`,
-    description: `Точний прогноз погоди на 7 днів вперед у ${location.city}.`,
+    title: `Погода в будь якій точці світу`,
+    description: `Точний прогноз погоди на 7 днів вперед у будь якій точці світу.`,
     openGraph: {
       images: ['/logo.jpg'],
       title: `Cumulus - ваш метеопомічник`,
