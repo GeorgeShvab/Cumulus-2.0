@@ -32,8 +32,8 @@ export const getWeather = async ({ lat, lon }: { lat: number; lon: number }) => 
     return {
       ...item,
       is_day:
-        item.dt * 1000 > dayBoundaries[new Date(item.dt * 1000 + data.timezone_offset).getDate()].start &&
-        item.dt * 1000 < dayBoundaries[new Date(item.dt * 1000 + data.timezone_offset).getDate()].end,
+        item.dt * 1000 > dayBoundaries[new Date(item.dt * 1000 + data.timezone_offset).getDate()]?.start &&
+        item.dt * 1000 < dayBoundaries[new Date(item.dt * 1000 + data.timezone_offset).getDate()]?.end,
     }
   })
 

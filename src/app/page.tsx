@@ -50,34 +50,28 @@ const getCity = async () => {
 }
 
 export default async function Home() {
-  try {
-    const coordinates = await getCity()
+  const coordinates = await getCity()
 
-    const location = coordinates.city
+  const location = coordinates.city
 
-    const weather = await getWeather(coordinates.location)
+  const weather = await getWeather(coordinates.location)
 
-    return (
-      <main className="bg-neutral-50">
-        <div className="lg:h-screen block lg:flex">
-          <div className="flex-[0_0_330px] xl:flex-[0_0_370px]">
-            <Sidebar
-              location={capitalizeLetter(location)}
-              dateOffset={weather.timezone_offset * 1000}
-              {...weather.current}
-            />
-          </div>
-          <div className="h-full flex-1">
-            <Main days={weather.daily} hours={weather.hourly} dateOffset={weather.timezone_offset * 1000} />
-          </div>
+  return (
+    <main className="bg-neutral-50">
+      <div className="lg:h-screen block lg:flex">
+        <div className="flex-[0_0_330px] xl:flex-[0_0_370px]">
+          <Sidebar
+            location={capitalizeLetter(location)}
+            dateOffset={weather.timezone_offset * 1000}
+            {...weather.current}
+          />
         </div>
-      </main>
-    )
-  } catch (e) {
-    console.log(e)
-
-    return <div>Some error occured</div>
-  }
+        <div className="h-full flex-1">
+          <Main days={weather.daily} hours={weather.hourly} dateOffset={weather.timezone_offset * 1000} />
+        </div>
+      </div>
+    </main>
+  )
 }
 
 export async function generateMetadata(): Promise<Metadata> {
