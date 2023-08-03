@@ -31,7 +31,7 @@ const Info: FC<DayWeather & { timeOffset: number }> = ({
           hourly
             ? 'lg:grid-cols-5'
             : 'lg:grid-cols-3 lg:[&_.card-container]:px-8 lg:[&_.card-container]:py-6 lg:[&_.card-text]:translate-x-0 lg:[&_.card-text]:text-6xl lg:[&_.card-text]:translate-y-0 lg:[&_.card-text]:right-none lg:[&_.card-text]:bottom-none lg:[&_.card-text]:static'
-        } grid-rows-2 h-full gap-2 xl:gap-3 flex-inital pb-2 lg:pb-0`}
+        } grid-rows-2 lg:h-full gap-2 xl:gap-3 flex-inital pb-2 lg:pb-0`}
       >
         <InfoCard
           title="Швидкість вітру"
