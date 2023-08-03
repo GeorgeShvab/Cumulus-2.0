@@ -31,7 +31,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         ></script>
       </head>
 
-      <body className={inter.className + ' font-montserrat lg:h-screen lg:overflow-hidden'}>
+      <body className={inter.className + ' font-montserrat lg:min-h-screen h-full bg-neutral-50'}>
         <settingsContext.Provider value={settingsState}>
           <ErrorBoundary fallback={<Error />}>
             <>

@@ -1,11 +1,11 @@
 'use client'
 
 import Alert from '@/components/Alert'
-import { useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { FC, useEffect, useRef, useState } from 'react'
 
 const ErrorHandler: FC = () => {
-  const [error, setError] = useState<'invalid_coordinates' | 'city_not_found'>()
+  const [error, setError] = useState<'invalid_coordinates' | 'city_not_found' | undefined>()
 
   const params = useSearchParams()
 
@@ -19,6 +19,8 @@ const ErrorHandler: FC = () => {
       time.current = setTimeout(() => {
         setError(undefined)
       }, 7500)
+    } else if (error) {
+      setError(undefined)
     }
 
     return () => {

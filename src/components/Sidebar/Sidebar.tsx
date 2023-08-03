@@ -8,14 +8,14 @@ import { getDayOfWeek } from '../../../utils/date'
 import { converTemperature } from '../../../utils/convert'
 import { settingsContext } from '@/app/settingsContext'
 
-const Sidebar: FC<CurrentWeather & { location: string; dateOffset: number }> = ({
+const Sidebar: FC<CurrentWeather & { location: string; timeOffset: number }> = ({
   temp,
   weather,
   location,
-  dateOffset,
+  timeOffset,
   is_day,
 }) => {
-  let date = new Date(Date.now() + dateOffset).toUTCString()
+  let date = new Date(Date.now() + timeOffset).toUTCString()
 
   const { settings } = useContext(settingsContext)
 
@@ -25,7 +25,7 @@ const Sidebar: FC<CurrentWeather & { location: string; dateOffset: number }> = (
 
   useEffect(() => {
     const interval = setInterval(() => {
-      let date = new Date(Date.now() + dateOffset).toUTCString()
+      let date = new Date(Date.now() + timeOffset).toUTCString()
 
       date = date.slice(17, date.length - 7)
 
@@ -41,7 +41,7 @@ const Sidebar: FC<CurrentWeather & { location: string; dateOffset: number }> = (
 
   return (
     <aside className="bg-white px-2 h-full w-full shadow-[0_0_5px_0_rgba(0,0,0,0.075)]">
-      <div className="h-fit lg:h-screen flex flex-col">
+      <div className="h-fit lg:min-h-screen flex flex-col">
         <div className="py-2">
           <Search />
         </div>
@@ -64,7 +64,7 @@ const Sidebar: FC<CurrentWeather & { location: string; dateOffset: number }> = (
         <div className="py-6 mt-auto">
           <h2 className="text-xl text-center mb-1">{location}</h2>
           <p className="text-md text-center text-sm text-neutral-500">
-            {getDayOfWeek(new Date(Date.now() + dateOffset).getUTCDay())}, {time}
+            {getDayOfWeek(new Date(Date.now() + timeOffset).getUTCDay())}, {time}
           </p>
         </div>
       </div>

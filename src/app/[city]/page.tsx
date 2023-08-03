@@ -1,5 +1,5 @@
 import Sidebar from '@/components/Sidebar/Sidebar'
-import Main from '@/components/Main/Main'
+import Main from '@/components/Main/Index'
 import { Metadata } from 'next/types'
 import { redirect } from 'next/navigation'
 import { headers } from 'next/dist/client/components/headers'
@@ -25,27 +25,32 @@ export default async function Home(query: Query) {
 
     return (
       <main className="bg-neutral-50">
-        <div className="lg:h-screen block lg:flex">
+        <div className="lg:min-h-screen block lg:flex">
           <div className="flex-[0_0_330px] xl:flex-[0_0_370px]">
             <Sidebar
               location={capitalizeLetter(location)}
-              dateOffset={weather.timezone_offset * 1000}
+              timeOffset={weather.timezone_offset * 1000}
               {...weather.current}
             />
           </div>
-          <div className="h-full flex-1">
-            <Main days={weather.daily} hours={weather.hourly} dateOffset={weather.timezone_offset * 1000} />
+          <div className="h-full flex-1 flex">
+            <Main days={weather.daily} timeOffset={weather.timezone_offset * 1000} />
           </div>
         </div>
       </main>
     )
   } catch (e) {
     const referer = headers().get('referer')
+
     if (!referer) redirect('/')
 
-    const prevPath = new URL(referer).pathname.replace(/\//, '')
+    const prevUrl = new URL(referer)
 
-    redirect('/' + prevPath + '?error=city_not_found')
+    prevUrl.searchParams.delete('error')
+
+    prevUrl.searchParams.append('error', 'city_not_found')
+
+    redirect(prevUrl.href)
   }
 }
 

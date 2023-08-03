@@ -9,10 +9,10 @@ interface Props extends DayWeather {
   className?: string
   unit: 'fahrenheit' | 'celsius'
   choosed: boolean
-  dateOffset: number
+  timeOffset: number
 }
 
-const DayCard: FC<Props> = ({ temp, className, onClick, dt, unit, weather, choosed, dateOffset }) => {
+const DayCard: FC<Props> = ({ temp, className, onClick, dt, unit, weather, choosed, timeOffset }) => {
   return (
     <div
       className={`rounded-lg bg-white p-1.5 py-2 xl:p-4 shadow-lg transition-all cursor-pointer ${
@@ -24,7 +24,7 @@ const DayCard: FC<Props> = ({ temp, className, onClick, dt, unit, weather, choos
       role="button"
     >
       <h5 className="text-center mb-1.5 xl:mb-0 font-semibold text-xs xl:text-sm">
-        {getDayOfWeek(new Date(dt * 1000 + dateOffset).getUTCDay())}
+        {getDayOfWeek(new Date(dt * 1000 + timeOffset).getUTCDay())}
       </h5>
       <div className="px-2 mb-1.5 xl:mb-0">
         <WeatherIcon code={weather[0].id} isDay={true} />
