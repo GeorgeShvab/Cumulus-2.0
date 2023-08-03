@@ -1,6 +1,6 @@
 import { cookies, headers } from 'next/dist/client/components/headers'
 import Sidebar from '@/components/Sidebar/Sidebar'
-import Main from '@/components/Main/Main'
+import Main from '@/components/Main/Index'
 import getCoordinates from '../../utils/getCoordinates'
 import { Metadata } from 'next'
 import { geocode, getWeather } from './api'
@@ -58,16 +58,16 @@ export default async function Home() {
 
   return (
     <main className="bg-neutral-50">
-      <div className="lg:h-screen block lg:flex">
+      <div className="lg:min-h-screen block lg:flex">
         <div className="flex-[0_0_330px] xl:flex-[0_0_370px]">
           <Sidebar
             location={capitalizeLetter(location)}
-            dateOffset={weather.timezone_offset * 1000}
+            timeOffset={weather.timezone_offset * 1000}
             {...weather.current}
           />
         </div>
-        <div className="h-full flex-1">
-          <Main days={weather.daily} hours={weather.hourly} dateOffset={weather.timezone_offset * 1000} />
+        <div className="h-full flex-1 flex">
+          <Main days={weather.daily} timeOffset={weather.timezone_offset * 1000} />
         </div>
       </div>
     </main>
@@ -76,12 +76,12 @@ export default async function Home() {
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
-    title: `Погода в будь якій точці світу`,
-    description: `Точний прогноз погоди на 7 днів вперед у будь якій точці світу.`,
+    title: `Прогноз погоди`,
+    description: `Точний прогноз погоди на 7 днів вперед`,
     openGraph: {
       images: ['/logo.jpg'],
-      title: `Cumulus - ваш метеопомічник`,
-      description: `Точний прогноз погоди на 7 днів вперед.`,
+      title: `Прогноз погоди`,
+      description: `Точний прогноз погоди на 7 днів вперед`,
       type: 'website',
       url: '/',
     },

@@ -113,6 +113,7 @@ interface DayWeather {
   pop: number
   uvi: number
   rain?: number
+  hourly: HourWeather[]
 }
 
 export interface CurrentWeather {
