@@ -34,7 +34,13 @@ const prepareData = (data: WeatherData): Omit<WeatherData, 'hourly'> => {
       is_day: item.dt * 1000 > dayBoundaries[key]?.start && item.dt * 1000 < dayBoundaries[key]?.end,
     }
 
-    if (Number(new Date((item.dt + data.timezone_offset) * 1000).toUTCString().slice(17, 19)) % 3 === 0) {
+    if (
+      Number(new Date((item.dt + data.timezone_offset) * 1000).toUTCString().slice(17, 19)) % 3 === 0 ||
+      (Number(new Date((item.dt + data.timezone_offset) * 1000).toUTCString().slice(17, 19)) === 23 &&
+        Number(new Date(new Date().getTime() + data.timezone_offset * 1000).toUTCString().slice(17, 19)) >= 21 &&
+        new Date(new Date().getTime() + data.timezone_offset * 1000).getDate() ===
+          new Date((item.dt + data.timezone_offset) * 1000).getDate())
+    ) {
       if (hourlyByDate[key]) {
         hourlyByDate[key].push(hour)
       } else {
