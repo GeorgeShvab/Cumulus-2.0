@@ -5,6 +5,7 @@ import getCoordinates from '../../utils/getCoordinates'
 import { Metadata } from 'next'
 import { geocode, getWeather } from './api'
 import { capitalizeLetter } from '../../utils/capitalizeLetter'
+import getLocalCityName from '../../utils/getLocalCityName'
 
 const getCity = async () => {
   let coordinates
@@ -30,7 +31,7 @@ const getCity = async () => {
 
       coordinates = {
         location: { lat: data.lat, lon: data.lon },
-        city: local_names.uk,
+        city: getLocalCityName(local_names),
       }
     }
   } else {
@@ -42,7 +43,7 @@ const getCity = async () => {
 
     coordinates = {
       location: { lat: data.lat, lon: data.lon },
-      city: local_names.uk,
+      city: getLocalCityName(local_names),
     }
   }
 
@@ -79,11 +80,11 @@ export async function generateMetadata(): Promise<Metadata> {
     title: `Прогноз погоди`,
     description: `Точний прогноз погоди на 7 днів вперед`,
     openGraph: {
-      images: ['/logo.jpg'],
+      images: ['https://cumulus-2.vercel.app/logo.jpg'],
       title: `Прогноз погоди`,
       description: `Точний прогноз погоди на 7 днів вперед`,
       type: 'website',
-      url: '/',
+      url: 'https://cumulus-2.vercel.app',
     },
   }
 }

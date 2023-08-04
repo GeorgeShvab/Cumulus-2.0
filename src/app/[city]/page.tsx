@@ -61,11 +61,11 @@ export async function generateMetadata(query: Query): Promise<Metadata> {
     title: `Погода в ${location}`,
     description: `Точний прогноз погоди на 7 днів вперед у ${location}.`,
     openGraph: {
-      images: ['/logo.jpg'],
+      images: ['https://cumulus-2.vercel.app/logo.jpg'],
       title: `Погода в ${location}`,
       description: `Точний прогноз погоди на 7 днів вперед у ${location}.`,
       type: 'website',
-      url: `/${location}`,
+      url: `https://cumulus-2.vercel.app/${location}`,
     },
   }
 }
