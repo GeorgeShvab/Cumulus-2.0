@@ -36,6 +36,8 @@ const getCity = async () => {
   } else {
     const ip = headers().get('x-forwarded-for') as string
 
+    console.log('IPIPIP', ip, 'IPIPIP')
+
     const data = await getCoordinates(process.env.MODE === 'PRODUCTION' ? ip : '178.251.107.104')
 
     const { local_names } = await geocode(data.city)
@@ -79,11 +81,11 @@ export async function generateMetadata(): Promise<Metadata> {
     title: `Прогноз погоди`,
     description: `Точний прогноз погоди на 7 днів вперед`,
     openGraph: {
-      images: ['/logo.jpg'],
+      images: ['https://cumulus-2.vercel.app/logo.jpg'],
       title: `Прогноз погоди`,
       description: `Точний прогноз погоди на 7 днів вперед`,
       type: 'website',
-      url: '/',
+      url: 'https://cumulus-2.vercel.app',
     },
   }
 }
