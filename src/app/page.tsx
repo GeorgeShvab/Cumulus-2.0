@@ -37,6 +37,8 @@ const getCity = async () => {
   } else {
     const ip = headers().get('x-forwarded-for') as string
 
+    console.log('IPIPIP', ip, 'IPIPIP')
+
     const data = await getCoordinates(process.env.MODE === 'PRODUCTION' ? ip : '178.251.107.104')
 
     const { local_names } = await geocode(data.city)
