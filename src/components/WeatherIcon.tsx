@@ -1,9 +1,16 @@
 import { FC } from 'react'
 
-const WeatherIcon: FC<{ code: number; isDay: boolean }> = ({ code, isDay }) => {
+interface Props {
+  title?: string
+  code: number
+  isDay: boolean
+}
+
+const WeatherIcon: FC<Props> = ({ code, isDay, title = 'Погода' }) => {
   if (code >= 200 && code <= 232) {
     return (
       <svg width="100%" height="100%" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <title>{title}</title>
         <path
           d="M28.52 11.34C28.52 8.58 26.3 6.42 23.6 6.42C23 6.42 22.46 6.54 21.92 6.72C21.74 4.68 20.06 3 17.96 3C15.74 3 13.94 4.8 13.94 7.02C13.94 7.5 14.06 7.98 14.18 8.4C14 8.34 13.76 8.34 13.58 8.34C11.36 8.34 9.56 10.14 9.56 12.36C9.56 14.52 11.3 16.32 13.46 16.38H23.78C26.42 16.08 28.52 13.98 28.52 11.34Z"
           fill="#91C0F8"
@@ -29,6 +36,7 @@ const WeatherIcon: FC<{ code: number; isDay: boolean }> = ({ code, isDay }) => {
   } else if (code >= 300 && code <= 321) {
     return (
       <svg width="100%" height="100%" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <title>{title}</title>
         <path
           d="M37.6 18.9C37.6 14.3 33.9 10.7 29.4 10.7C28.4 10.7 27.5 10.9 26.6 11.2C26.3 7.8 23.5 5 20 5C16.3 5 13.3 8 13.3 11.7C13.3 12.5 13.5 13.3 13.7 14C13.4 13.9 13 13.9 12.7 13.9C9 13.9 6 16.9 6 20.6C6 24.2 8.9 27.2 12.5 27.3H29.7C34.1 26.8 37.6 23.3 37.6 18.9Z"
           fill="#57A0EE"
@@ -56,6 +64,7 @@ const WeatherIcon: FC<{ code: number; isDay: boolean }> = ({ code, isDay }) => {
     if (isDay) {
       return (
         <svg width="100%" height="100%" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <title>{title}</title>
           <path d="M15 30V33" stroke="#FFA500" strokeWidth="2" strokeLinecap="round" />
           <path d="M8.63603 27.364L6.51471 29.4853" stroke="#FFA500" strokeWidth="2" strokeLinecap="round" />
           <path d="M6 21H3" stroke="#FFA500" strokeWidth="2" strokeLinecap="round" />
@@ -82,6 +91,7 @@ const WeatherIcon: FC<{ code: number; isDay: boolean }> = ({ code, isDay }) => {
     } else {
       return (
         <svg width="100%" height="100%" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <title>{title}</title>
           <path
             d="M25.54 9L26.1 9.96L27.06 10.44L26.1 11L25.54 11.96L25.06 11L24.1 10.44L25.06 9.96L25.54 9Z"
             fill="#FFA500"
@@ -110,6 +120,7 @@ const WeatherIcon: FC<{ code: number; isDay: boolean }> = ({ code, isDay }) => {
   } else if (code >= 501 && code <= 504) {
     return (
       <svg width="100%" height="100%" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <title>{title}</title>
         <path
           d="M38.6 17.9C38.6 13.3 34.9 9.7 30.4 9.7C29.4 9.7 28.5 9.9 27.6 10.2C27.3 6.8 24.5 4 21 4C17.3 4 14.3 7 14.3 10.7C14.3 11.5 14.5 12.3 14.7 13C14.4 12.9 14 12.9 13.7 12.9C10 12.9 7 15.9 7 19.6C7 23.2 9.9 26.2 13.5 26.3H30.7C35.1 25.8 38.6 22.3 38.6 17.9Z"
           fill="#57A0EE"
@@ -143,6 +154,7 @@ const WeatherIcon: FC<{ code: number; isDay: boolean }> = ({ code, isDay }) => {
   } else if (code === 511) {
     return (
       <svg width="100%" height="100%" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <title>{title}</title>
         <path
           d="M38.6 21.9C38.6 17.3 34.9 13.7 30.4 13.7C29.4 13.7 28.5 13.9 27.6 14.2C27.3 10.8 24.5 8 21 8C17.3 8 14.3 11 14.3 14.7C14.3 15.5 14.5 16.3 14.7 17C14.4 16.9 14 16.9 13.7 16.9C10 16.9 7 19.9 7 23.6C7 27.2 9.9 30.2 13.5 30.3H30.7C35.1 29.8 38.6 26.3 38.6 21.9Z"
           fill="#57A0EE"
@@ -159,6 +171,7 @@ const WeatherIcon: FC<{ code: number; isDay: boolean }> = ({ code, isDay }) => {
   } else if (code >= 520 && code <= 531) {
     return (
       <svg width="100%" height="100%" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <title>{title}</title>
         <path
           d="M38.6 17.9C38.6 13.3 34.9 9.7 30.4 9.7C29.4 9.7 28.5 9.9 27.6 10.2C27.3 6.8 24.5 4 21 4C17.3 4 14.3 7 14.3 10.7C14.3 11.5 14.5 12.3 14.7 13C14.4 12.9 14 12.9 13.7 12.9C10 12.9 7 15.9 7 19.6C7 23.2 9.9 26.2 13.5 26.3H30.7C35.1 25.8 38.6 22.3 38.6 17.9Z"
           fill="#57A0EE"
@@ -192,6 +205,7 @@ const WeatherIcon: FC<{ code: number; isDay: boolean }> = ({ code, isDay }) => {
   } else if (code >= 600 && code <= 622) {
     return (
       <svg width="100%" height="100%" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <title>{title}</title>
         <path
           d="M38.6 21.9C38.6 17.3 34.9 13.7 30.4 13.7C29.4 13.7 28.5 13.9 27.6 14.2C27.3 10.8 24.5 8 21 8C17.3 8 14.3 11 14.3 14.7C14.3 15.5 14.5 16.3 14.7 17C14.4 16.9 14 16.9 13.7 16.9C10 16.9 7 19.9 7 23.6C7 27.2 9.9 30.2 13.5 30.3H30.7C35.1 29.8 38.6 26.3 38.6 21.9Z"
           fill="#57A0EE"
@@ -216,6 +230,7 @@ const WeatherIcon: FC<{ code: number; isDay: boolean }> = ({ code, isDay }) => {
   } else if (code >= 701 && code <= 781) {
     return (
       <svg width="100%" height="100%" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <title>{title}</title>
         <path
           d="M28.52 17.34C28.52 14.58 26.3 12.42 23.6 12.42C23 12.42 22.46 12.54 21.92 12.72C21.74 10.68 20.06 9 17.96 9C15.74 9 13.94 10.8 13.94 13.02C13.94 13.5 14.06 13.98 14.18 14.4C14 14.34 13.76 14.34 13.58 14.34C11.36 14.34 9.56 16.14 9.56 18.36C9.56 20.52 11.3 22.32 13.46 22.38H23.78C26.42 22.08 28.52 19.98 28.52 17.34Z"
           fill="#91C0F8"
@@ -236,6 +251,7 @@ const WeatherIcon: FC<{ code: number; isDay: boolean }> = ({ code, isDay }) => {
     if (isDay) {
       return (
         <svg width="100%" height="100%" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <title>{title}</title>
           <path d="M15 30V33" stroke="#FFA500" strokeWidth="2" strokeLinecap="round" />
           <path d="M8.63603 27.364L6.51471 29.4853" stroke="#FFA500" strokeWidth="2" strokeLinecap="round" />
           <path d="M6 21H3" stroke="#FFA500" strokeWidth="2" strokeLinecap="round" />
@@ -262,6 +278,7 @@ const WeatherIcon: FC<{ code: number; isDay: boolean }> = ({ code, isDay }) => {
     } else {
       return (
         <svg width="100%" height="100%" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <title>{title}</title>
           <path
             d="M25.54 9L26.1 9.96L27.06 10.44L26.1 11L25.54 11.96L25.06 11L24.1 10.44L25.06 9.96L25.54 9Z"
             fill="#FFA500"
@@ -290,6 +307,7 @@ const WeatherIcon: FC<{ code: number; isDay: boolean }> = ({ code, isDay }) => {
   } else if (code >= 803 && code <= 804) {
     return (
       <svg width="100%" height="100%" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <title>{title}</title>
         <path
           d="M28.52 17.34C28.52 14.58 26.3 12.42 23.6 12.42C23 12.42 22.46 12.54 21.92 12.72C21.74 10.68 20.06 9 17.96 9C15.74 9 13.94 10.8 13.94 13.02C13.94 13.5 14.06 13.98 14.18 14.4C14 14.34 13.76 14.34 13.58 14.34C11.36 14.34 9.56 16.14 9.56 18.36C9.56 20.52 11.3 22.32 13.46 22.38H23.78C26.42 22.08 28.52 19.98 28.52 17.34Z"
           fill="#91C0F8"
@@ -310,6 +328,7 @@ const WeatherIcon: FC<{ code: number; isDay: boolean }> = ({ code, isDay }) => {
     if (isDay) {
       return (
         <svg width="100%" height="100%" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <title>{title}</title>
           <path d="M22 32V35" stroke="#FFA500" strokeWidth="2" strokeLinecap="round" />
           <path d="M15.636 29.364L13.5147 31.4853" stroke="#FFA500" strokeWidth="2" strokeLinecap="round" />
           <path d="M13 23H10" stroke="#FFA500" strokeWidth="2" strokeLinecap="round" />
@@ -329,6 +348,7 @@ const WeatherIcon: FC<{ code: number; isDay: boolean }> = ({ code, isDay }) => {
     } else {
       return (
         <svg width="100%" height="100%" viewBox="0 0 45 45" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <title>{title}</title>
           <path
             d="M12.8 12L13.5 13.2L14.7 13.8L13.5 14.5L12.8 15.7L12.2 14.5L11 13.8L12.2 13.2L12.8 12Z"
             fill="#FFA500"
