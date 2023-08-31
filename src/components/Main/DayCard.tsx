@@ -24,9 +24,9 @@ const DayCard: FC<Props> = ({ temp, className, onClick, dt, unit, weather, choos
       role="button"
       aria-label={'Погода у ' + getDayOfWeek(new Date(dt * 1000 + timeOffset).getUTCDay())}
     >
-      <h5 className="text-center mb-1.5 xl:mb-0 font-semibold text-xs xl:text-sm">
+      <h3 className="text-center mb-1.5 xl:mb-0 font-semibold text-xs xl:text-sm">
         {getDayOfWeek(new Date(dt * 1000 + timeOffset).getUTCDay())}
-      </h5>
+      </h3>
       <div className="px-2 mb-1.5 xl:mb-0">
         <WeatherIcon title={weather[0].description} code={weather[0].id} isDay={true} />
       </div>

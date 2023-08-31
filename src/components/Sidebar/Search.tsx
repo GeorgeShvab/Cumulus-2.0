@@ -72,6 +72,7 @@ const Search: FC = () => {
         <button
           className="bg-transparent border-none hover:bg-neutral-100 rounded-full p-1 transition-colors"
           type="submit"
+          aria-label="Пошук"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
