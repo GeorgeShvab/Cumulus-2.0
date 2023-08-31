@@ -47,7 +47,7 @@ const Sidebar: FC<CurrentWeather & { location: string; timeOffset: number }> = (
         </div>
         <div className="w-full mb-4 px-10 lg:px-0">
           <div className="w-full aspect-square">
-            <WeatherIcon code={weather[0].id} isDay={is_day} />
+            <WeatherIcon title={description} code={weather[0].id} isDay={is_day} />
           </div>
         </div>
         <div className="px-8 mb-20 lg:mb-0">

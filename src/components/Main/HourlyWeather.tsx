@@ -17,7 +17,7 @@ const HourCard: FC<HourWeather & { timeOffset: number; settings: Settings }> = (
   return (
     <div className="px-2.5 py-0.5 text-xs gap-3 rounded lg:rounded-none bg-white shadow-sm lg:shadow-none items-center h-12 grid grid-rows-1 grid-cols-6">
       <div className="h-10">
-        <WeatherIcon code={weather[0]?.id || 0} isDay={is_day} />
+        <WeatherIcon title={weather[0]?.description} code={weather[0]?.id || 0} isDay={is_day} />
       </div>
       <span className="text-center font-medium md:text-sm text-[11px] lg:text-[12px] text-neutral-800">
         {new Date(dt * 1000 + timeOffset).toUTCString().slice(17, 22)}

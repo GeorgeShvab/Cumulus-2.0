@@ -22,12 +22,13 @@ const DayCard: FC<Props> = ({ temp, className, onClick, dt, unit, weather, choos
       } ${className}`}
       onClick={onClick}
       role="button"
+      aria-label={'Погода у ' + getDayOfWeek(new Date(dt * 1000 + timeOffset).getUTCDay())}
     >
       <h5 className="text-center mb-1.5 xl:mb-0 font-semibold text-xs xl:text-sm">
         {getDayOfWeek(new Date(dt * 1000 + timeOffset).getUTCDay())}
       </h5>
       <div className="px-2 mb-1.5 xl:mb-0">
-        <WeatherIcon code={weather[0].id} isDay={true} />
+        <WeatherIcon title={weather[0].description} code={weather[0].id} isDay={true} />
       </div>
       <p className="font-semibold text-center text-xs xl:text-sm xl:text-base">
         {Math.round(converTemperature({ temp: temp.max, to: unit }))}°{' '}

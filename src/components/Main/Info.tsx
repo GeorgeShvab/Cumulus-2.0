@@ -1,9 +1,8 @@
 import { FC, useContext } from 'react'
-import { DayWeather, HourWeather, Settings } from '../../../types'
+import { DayWeather } from '../../../types'
 import { settingsContext } from '@/app/settingsContext'
 import { translatePressureUnit, translateSpeedUnit } from '../../../utils/translate'
-import { converTemperature, convertPressure, convertSpeed } from '../../../utils/convert'
-import WeatherIcon from '../WeatherIcon'
+import { convertPressure, convertSpeed } from '../../../utils/convert'
 import InfoCard from './InfoCard'
 import HourlyWeather from './HourlyWeather'
 
