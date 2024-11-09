@@ -1,24 +1,55 @@
-'use client'
+"use client";
 
-'use client'
+import "@/app/globals.css";
+import { Inter } from "next/font/google";
+import {
+  settingsContext,
+  useSettingsContex,
+} from "@/providers/SettingsProvider/SettingsProvider";
+import ErrorBoundary from "@/app/ErrorBoundary";
+import Error from "@/app/error";
+import ErrorHandler from "@/app/ErrorHandler";
+import moment from "moment";
 
-import './globals.css'
-import { Inter } from 'next/font/google'
-import { settingsContext, useSettingsContex } from './settingsContext'
-import ErrorBoundary from './ErrorBoundary'
-import Error from './error'
-import ErrorHandler from './ErrorHandler'
+import "moment/min/locales";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const settingsState = useSettingsContex()
+moment.updateLocale("uk", {
+  months: [
+    "січня",
+    "лютого",
+    "березня",
+    "квітня",
+    "травня",
+    "червня",
+    "липня",
+    "серпня",
+    "вересня",
+    "жовтня",
+    "листопада",
+    "грудня",
+  ],
+});
+
+moment.locale("uk");
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const settingsState = useSettingsContex();
 
   return (
     <html lang="uk">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin=""
+        />
         <link
           href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&display=swap"
           rel="stylesheet"
@@ -31,7 +62,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         ></script>
       </head>
 
-      <body className={inter.className + ' font-montserrat lg:min-h-screen h-full bg-neutral-50'}>
+      <body
+        className={
+          inter.className +
+          " font-montserrat lg:min-h-screen h-full bg-neutral-50"
+        }
+      >
         <settingsContext.Provider value={settingsState}>
           <ErrorBoundary fallback={<Error />}>
             <>
@@ -43,5 +79,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </settingsContext.Provider>
       </body>
     </html>
-  )
+  );
 }

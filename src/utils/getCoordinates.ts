@@ -1,12 +1,12 @@
-import axios from 'axios'
-import { CoordinatesResponse } from '../types'
+import axios from "axios";
+import { CoordinatesResponse } from "@/types";
 
 const getCoordinates = async (ip: string): Promise<CoordinatesResponse> => {
   const { data } = await axios.get<CoordinatesResponse>(
     `http://ip-api.com/json/${ip}`
-  )
+  );
 
-  return data
-}
+  return data;
+};
 
-export default getCoordinates
+export default getCoordinates;

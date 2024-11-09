@@ -10,6 +10,8 @@ For the curious, Cumulus is a kind of cloud.
 
 Its name on Github is Cumulus-2.0 because I already have an old, less advanced project with the same name.
 
+Recently I have done some refactoring and integrated momentjs to get familiar with this library.
+
 Here you can find the deployed app: https://cumulus-2-0.vercel.app
 
 ![Вигляд додатку](https://github.com/GeorgeShvab/Cumulus-2.0/assets/62070431/5deba969-6b09-46b5-9341-cd2fe389cd56)
