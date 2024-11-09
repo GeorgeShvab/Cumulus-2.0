@@ -1,26 +1,20 @@
-import Sidebar from '@/components/Sidebar/Sidebar'
-import Main from '@/components/Main/Index'
-import { Metadata } from 'next'
-import { redirect } from 'next/navigation'
-import { headers } from 'next/dist/client/components/headers'
-import { getWeather } from '../api'
-import { capitalizeLetter } from '../../../utils/capitalizeLetter'
+import Sidebar from "@/components/Sidebar/Sidebar";
+import Main from "@/components/Main/Index";
+import { redirect } from "next/navigation";
+import { headers } from "next/dist/client/components/headers";
+import getWeather from "@/api/getWeather";
+import { capitalizeLetter } from "@/utils/capitalizeLetter";
+import { CoordinatesPageProps } from "@/app/coordinates/types";
+export { default as generateMetadata } from "@/app/coordinates/metadata";
 
-interface Query {
-  searchParams: {
-    latitude: string
-    longitude: string
-  }
-}
-
-export default async function Home(query: Query) {
+export default async function Home({ searchParams }: CoordinatesPageProps) {
   try {
     const weather = await getWeather({
-      lat: Number(query.searchParams?.latitude),
-      lon: Number(query.searchParams?.longitude),
-    })
+      latitude: Number(searchParams?.latitude),
+      longitude: Number(searchParams?.longitude),
+    });
 
-    const location = `${query.searchParams?.latitude}° ${query.searchParams?.longitude}°`
+    const location = `${searchParams?.latitude}° ${searchParams?.longitude}°`;
 
     return (
       <main className="bg-neutral-50">
@@ -28,41 +22,27 @@ export default async function Home(query: Query) {
           <div className="flex-[0_0_330px] xl:flex-[0_0_370px]">
             <Sidebar
               location={capitalizeLetter(location)}
-              timeOffset={weather.timezone_offset * 1000}
+              timeOffset={weather.timezone_offset}
               {...weather.current}
             />
           </div>
           <div className="h-full flex-1 flex">
-            <Main days={weather.daily} timeOffset={weather.timezone_offset * 1000} />
+            <Main days={weather.daily} timeOffset={weather.timezone_offset} />
           </div>
         </div>
       </main>
-    )
+    );
   } catch (e) {
-    const referer = headers().get('referer')
+    const referer = headers().get("referer");
 
-    if (!referer) redirect('/')
+    if (!referer) redirect("/");
 
-    const prevUrl = new URL(referer)
+    const prevUrl = new URL(referer);
 
-    prevUrl.searchParams.delete('error')
+    prevUrl.searchParams.delete("error");
 
-    prevUrl.searchParams.append('error', 'city_not_found')
+    prevUrl.searchParams.append("error", "city_not_found");
 
-    redirect(prevUrl.href)
-  }
-}
-
-export async function generateMetadata(query: Query): Promise<Metadata> {
-  return {
-    title: `Погода в ${query.searchParams?.latitude}° ${query.searchParams?.longitude}°`,
-    description: `Точний прогноз погоди на 7 днів вперед у ${query.searchParams.latitude}°, ${query.searchParams.longitude}°.`,
-    openGraph: {
-      images: ['https://cumulus-2.vercel.app/logo.jpg'],
-      title: `Погода в ${query.searchParams?.latitude}° ${query.searchParams?.longitude}`,
-      description: `Точний прогноз погоди на 7 днів вперед у ${query.searchParams.latitude}°, ${query.searchParams.longitude}°.`,
-      type: 'website',
-      url: `https://cumulus-2.vercel.app/coordinates?latitude=${query.searchParams?.latitude}&longitude=${query.searchParams?.longitude}`,
-    },
+    redirect(prevUrl.href);
   }
 }

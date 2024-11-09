@@ -1,44 +1,44 @@
-'use client'
+"use client";
 
-import Alert from '@/components/Alert'
-import { usePathname, useSearchParams } from 'next/navigation'
-import { FC, useEffect, useRef, useState } from 'react'
+import Alert from "@/components/Alert/Alert";
+import { useSearchParams } from "next/navigation";
+import { FC, useEffect, useRef, useState } from "react";
+
+type ErrorType = "invalid_coordinates" | "city_not_found" | undefined;
 
 const ErrorHandler: FC = () => {
-  const [error, setError] = useState<'invalid_coordinates' | 'city_not_found' | undefined>()
-
-  const params = useSearchParams()
-
-  const time = useRef<NodeJS.Timeout>()
+  const [error, setError] = useState<ErrorType>();
+  const params = useSearchParams();
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    const paramsError = params.get('error')
-    if (paramsError) {
-      setError(paramsError as 'invalid_coordinates' | 'city_not_found')
+    const paramsError = params.get("error") as ErrorType;
 
-      time.current = setTimeout(() => {
-        setError(undefined)
-      }, 7500)
-    } else if (error) {
-      setError(undefined)
+    if (paramsError) {
+      setError(paramsError);
+
+      timeoutRef.current = setTimeout(() => setError(undefined), 7500);
+    } else {
+      setError(undefined);
     }
 
     return () => {
-      clearTimeout(time.current)
-    }
-  }, [params])
+      timeoutRef.current && clearTimeout(timeoutRef.current);
+    };
+  }, [params]);
 
-  if (error) {
-    if (error === 'city_not_found') {
-      return <Alert>Населений пункт не знайдено</Alert>
-    } else if (error === 'invalid_coordinates') {
-      return <Alert>Координати невірні</Alert>
-    } else {
-      return null
+  const renderErrorMessage = () => {
+    switch (error) {
+      case "city_not_found":
+        return <Alert>Населений пункт не знайдено</Alert>;
+      case "invalid_coordinates":
+        return <Alert>Координати невірні</Alert>;
+      default:
+        return null;
     }
-  } else {
-    return null
-  }
-}
+  };
 
-export default ErrorHandler
+  return renderErrorMessage();
+};
+
+export default ErrorHandler;

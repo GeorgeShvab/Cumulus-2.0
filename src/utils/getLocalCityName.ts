@@ -1,6 +1,6 @@
-import { GeocodingData } from '../types'
+import { GeocodingData } from "@/types";
 
-const getLocalCityName = (data: GeocodingData['local_names']) => {
+const getLocalCityName = (data: GeocodingData["local_names"]) => {
   return (
     data.uk ||
     data.en ||
@@ -14,8 +14,8 @@ const getLocalCityName = (data: GeocodingData['local_names']) => {
     data.ka ||
     data.zh ||
     data.hy ||
-    'Kyiv'
-  )
-}
+    "Kyiv"
+  );
+};
 
-export default getLocalCityName
+export default getLocalCityName;
