@@ -50,8 +50,12 @@ const prepareData = (data: WeatherData): Omit<WeatherData, "hourly"> => {
 
     const key = getDateFromUnix(unixTime);
 
-    const isDay =
-      item.dt > dayBoundaries[key]?.start && item.dt < dayBoundaries[key]?.end;
+    const isDay = moment
+      .unix(item.dt)
+      .isBetween(
+        moment.unix(dayBoundaries[key]?.start),
+        moment.unix(dayBoundaries[key]?.end)
+      );
 
     const hourData = {
       ...item,
@@ -67,11 +71,12 @@ const prepareData = (data: WeatherData): Omit<WeatherData, "hourly"> => {
     }
   });
 
-  const currentUtcTime = moment().utc().unix();
+  const isDay = moment().isBetween(
+    moment.unix(data.current.sunrise),
+    moment.unix(data.current.sunset)
+  );
 
-  data.current.is_day =
-    currentUtcTime > data.current.sunrise &&
-    currentUtcTime < data.current.sunset;
+  data.current.is_day = isDay;
 
   data.daily = data.daily
     .map((item) => ({
