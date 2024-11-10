@@ -1,18 +1,18 @@
-import { usePathname, useSearchParams } from 'next/navigation'
+import { usePathname, useSearchParams } from "next/navigation";
 
 const useCurrentLocation = () => {
-  const pathname = usePathname()
-  const search = useSearchParams()
+  const pathname = usePathname();
+  const search = useSearchParams();
 
-  let input
+  let input;
 
-  if (search.has('latitude') && search.has('longitude')) {
-    input = `${search.get('latitude')} ${search.get('longitude')}`
+  if (search.has("latitude") && search.has("longitude")) {
+    input = `${search.get("latitude")} ${search.get("longitude")}`;
   } else {
-    input = decodeURI(pathname.split('/').reverse()[0])
+    input = decodeURI(pathname.split("/").reverse()[0]);
   }
 
-  return input
-}
+  return input;
+};
 
-export default useCurrentLocation
+export default useCurrentLocation;

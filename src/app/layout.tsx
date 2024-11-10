@@ -10,6 +10,7 @@ import ErrorBoundary from "@/app/ErrorBoundary";
 import Error from "@/app/error";
 import ErrorHandler from "@/app/ErrorHandler";
 import moment from "moment";
+import { Analytics } from "@vercel/analytics/react";
 
 import "moment/min/locales";
 
@@ -33,6 +34,8 @@ moment.updateLocale("uk", {
 });
 
 moment.locale("uk");
+
+const GOOGLE_API_KEY = process.env.NEXT_PUBLIC_GOOGLE_CLOUD_API_KEY;
 
 export default function RootLayout({
   children,
@@ -58,7 +61,7 @@ export default function RootLayout({
         <script
           async
           defer
-          src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBioDakkwvxdwJrZWYuYlrCE_gQm13H2HA&libraries=places"
+          src={`https://maps.googleapis.com/maps/api/js?key=${GOOGLE_API_KEY}&libraries=places`}
         ></script>
       </head>
 
